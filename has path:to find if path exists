@@ -1,0 +1,51 @@
+import queue
+class graph:
+    def __init__(self,nVertices):
+        self.nVertices=nVertices
+        self.adjmatrix=[[0 for i in range(nVertices)] for j in range (nVertices)] #this creates a 0 by 0 matrix
+    
+    def addedge(self,v1,v2):
+        self.adjmatrix[v1][v2]=1
+        self.adjmatrix[v2][v1]=1
+
+    def __dfshelper(self,v1,v2,visited):
+        
+        q=queue.Queue()
+        q.put(v1)
+        visited[v1]=True
+        while not q.empty():
+            v=q.get()
+            for i in range(self.nVertices):
+            
+                if (self.adjmatrix[v][i]>0 and visited[i] is False):
+                    q.put(i)
+                    visited[i]=True
+                    if i==v2:
+                        print("true")
+                        return 
+        print("false")
+        return 
+
+    def dfs(self,v1,v2):
+        
+        visited=[False for i in range(self.nVertices)]
+        self.__dfshelper(v1,v2,visited)    
+        
+        
+        
+        
+        
+       
+l1 = [int(x) for x in input().strip().split()]
+vertices = l1[0]
+edges = l1[1]
+
+g = graph(vertices)
+
+for i in range(edges):
+    edgPair = [int(x) for x in input().strip().split()]
+    g.addedge(edgPair[0], edgPair[1])
+l2 = [int(x) for x in input().strip().split()]
+a=l2[0]
+b=l2[1]
+g.dfs(a,b)
