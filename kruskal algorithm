@@ -1,0 +1,55 @@
+class edge:
+    def __init__(self,source,destination,weight):
+        self.source=source
+        self.destination=destination
+        self.weight=weight
+
+li=[int(ele) for ele in input().split()]
+n=li[0]
+E=li[1]
+edges=[ ]
+
+
+def getParent(v,parent):
+    if (v==parent[v]):
+        return v
+    return getParent(parent[v],parent)
+       
+def kruskal(edges,nVertices):
+    
+    parent=[i for i in range (nVertices)]
+    edges=sorted(edges,key=lambda edge:edge.weight)
+    count=0
+    
+    output=[]
+    i=0
+        
+    while count<(nVertices-1):
+        currentedge=edges[i]
+        srcparent=getParent(currentedge.source,parent)
+        destparent=getParent(currentedge.destination,parent)
+            
+        if srcparent != destparent:
+            output.append(currentedge)
+            count+=1
+            parent[srcparent]=destparent
+        i+=1
+    return output
+
+
+for i in range(E):
+    curr_input=[int(ele) for ele in input().split()]
+    source=curr_input[0]
+    destination=curr_input[1]
+    weight=curr_input[2]
+    Edge=edge(source,destination,weight)
+    edges.append(Edge)
+output=kruskal(edges,n)
+
+for edge in output:
+    if edge.source<edge.destination:
+        print(str(edge.source) +" "+str(edge.destination)+" "+str(edge.weight))
+    else:
+        print(str(edge.destination) +" "+str(edge.source)+" "+str(edge.weight))
+            
+        
