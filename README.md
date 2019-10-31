@@ -1,1 +1,1 @@
-here I will upload all algos related to graph in python language
+here I will upload all data structures and algorithm codes
