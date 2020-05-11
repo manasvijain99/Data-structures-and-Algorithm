@@ -1,0 +1,83 @@
+class MapNode:
+    def __init__(self,key,value):
+        self.value=value
+        self.key=key
+        self.next=None
+    
+   
+    
+class Map:
+    def __init__(self):
+        self.bucketsize=10 #suppose we are taking it to be size of 10
+        
+        self.bucket=[None for i in range(self.bucketsize)]      #initialize each bucket with none
+        #we are calling each block of the array as bucket where we will store values in linkedlist if collision happens
+        
+        self.count=0 
+    def size(self):
+        return self.count
+    
+    #then we need to get the bucket index for inserting the value so for that we will use hash function and the % with bucketsize
+    def getindex(self,hc):
+        return ((abs(hc))% self.bucketsize) #we will take absolute value because hc or index is always positive
+    
+    def insert(self,key,value):
+        hc=hash(key)
+        index=self.getindex(hc)
+        head=self.bucket[index]
+        while head is not None:
+            if head.key==key:
+                self.value=value # if keys are same the only value needs to replaced
+                return
+            head=head.next
+            
+            head=self.bucket[index]
+            
+            #if keys are different that is a newnodes needs to be made and then needs to be inserted before head
+            
+        newnode=MapNode(key,value)
+        newnode=head #1st connection is completed by connectin head to node
+        self.bucket[index]=newnode #2nd connection by connecting the index at which LL is being created to that node
+        self.count+=1 #then increase the count by 1
+            
+            
+            #here we are not returning anything from the function because we are inserting
+            
+    def remove(self):
+        
+        hc=hash(key)
+        index=self.getindex(hc)
+        head=self.bucket[index]
+        prev=None
+        while head is not None:   #for deleting we need to maintain a prev pointer as well like in ll
+            if head.key==key:
+                if prev is None:
+                    self.bucket[index]=head.next #we'll delete first node and then connect the bucket index which is in array to next node's head
+                else:
+                    prev.next=head.next
+                self.count-=1
+                return head.value
+                
+            prev=head       #if key is not same then we will assign head to prev and then move head ahead
+            head=head.next  # so now dono nodes aage peeche honge!
+        return None
+    
+    def search(self,key):
+        hc=hash(key)
+        index=self.getindex(hc)
+        head=self.bucket[index]
+        while head is not None:
+            if head.key==key:
+                return head.value
+            head=head.next
+        return None
+        
+m=Map()
+m.insert('mini',2)
+print(m.search('mini'))
+print(m.size())
+m.insert('naman',4)
+print(m.search('naman'))
+print(m.size())
+
+    
