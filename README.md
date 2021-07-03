@@ -1,2 +1,2 @@
 
-Practice questions of DSA coded in Java
+Leetcode Practice questions of DSA coded in Java
