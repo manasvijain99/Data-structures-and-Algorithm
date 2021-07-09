@@ -1,4 +1,5 @@
 //This is optimized solution
+//MEDIUM
 package Leetcode;
 import java.util.*;
 
